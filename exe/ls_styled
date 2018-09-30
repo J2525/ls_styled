@@ -2,4 +2,4 @@
 
 require 'ls_styled'
 
-LsStyled.lsstyled
+LsStyled.lsstyled(ARGV[0])
