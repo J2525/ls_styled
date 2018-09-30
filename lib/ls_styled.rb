@@ -1,5 +1,7 @@
 require "ls_styled/version"
 
 module LsStyled
-  # Your code goes here...
+  def self.lsstyled
+    Kernel.exec('ls')
+  end
 end
