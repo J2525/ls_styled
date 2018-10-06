@@ -2,6 +2,10 @@ require "ls_styled/version"
 
 module LsStyled
   def self.lsstyled(path)
-    p Dir::entries(ARGV[0])
+    lists = Dir::entries(path)
+    lists.each do |list|
+      next if list[0] == '.'
+      puts list
+    end
   end
 end
