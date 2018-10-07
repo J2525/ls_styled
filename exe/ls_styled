@@ -1,5 +1,17 @@
 #!/usr/bin/env ruby
-
+require 'optparse'
 require 'ls_styled'
+require 'etc'
 
-LsStyled.lsstyled(ARGV[0])
+opts = {
+ a: false,
+ l: false,
+ r: false
+}
+op = OptionParser.new
+op.on('-a'){|v| opts[:a] = true}
+op.on('-l'){|v| opts[:l] = true}
+op.on('-r'){|v| opts[:r] = true}
+op.parse(ARGV[0])
+
+LsStyled.run(Dir.pwd, opts)
