@@ -21,21 +21,26 @@ module LsStyled
   end
 
   def self.l_option(files)
+    puts "total #{self.get_total(files)}"
     files.each do |file|
       stat = File.lstat(file)
       file_type = self.get_file_type("0%o" % stat.mode)
       permission = self.get_permission("0%o" % stat.mode)
       formattedmode = file_type + permission
+      time = "#{stat.ctime.hour}:#{"%02d" % stat.ctime.min}"
       results = [
         formattedmode,
         stat.nlink,
         Etc.getpwuid(stat.uid).name,
         Etc.getgrgid(stat.gid).name,
         stat.size,
-        stat.mtime,
+        stat.ctime.month,
+        stat.ctime.day,
+        time,
         file
       ]
       puts results.join(" ")
+
     end
   end
 
@@ -66,5 +71,14 @@ module LsStyled
     end
     return result.join()
 
+  end
+
+  def self.get_total(files)
+    total = 0
+    files.each do |file|
+      block = File.lstat(file).blocks
+      total += block
+    end
+    total
   end
 end
